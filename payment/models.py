@@ -1,15 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 # Create your models here.
+from account.models import Profile
+
+
 class BillingAddress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=20, blank=True, null=True)
     last_name = models.CharField(max_length=20, blank=True, null=True)
     country = models.CharField(max_length=20, blank=True, null=True)
     address1 = models.TextField(max_length=200, blank=True, null=True)
     address2 = models.TextField(max_length=200, blank=True, null=True)
-    city = models.CharField(max_length=100, blank=True,null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
     zipcode = models.CharField(max_length=16, blank=True, null=True)
     phone_number = models.CharField(max_length=16, blank=True, null=True)
 
@@ -17,9 +19,9 @@ class BillingAddress(models.Model):
         return f"{self.user.username}'s billing address"
 
     def is_fully_filled(self):
-        field_names = [f.name for f in self._meta.get_field()]
+        field_names = [f.name for f in self._meta.get_fields()]
         for field_name in field_names:
             value = getattr(self, field_name)
             if value is None or value == '':
                 return False
-            return True
+        return True

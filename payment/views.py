@@ -26,9 +26,7 @@ class CheckoutTemplateView(TemplateView):
             'order_total': order_total,
             'payment_method': payment_method,
             'paypal_client_id': settings.PAYPAL_CLIENT_ID
-
         }
-        print('x',settings.PAYPAL_CLIENT_ID)
         return render(request, '../templates/checkout.html', context)
 
     def post(self, request, *args, **kwargs):
@@ -38,16 +36,16 @@ class CheckoutTemplateView(TemplateView):
         payment_obj = Order.objects.filter(user=request.user, ordered=False)[0]
         payment_form = PaymentMethodForm(instance=payment_obj)
         if request.method == 'post' or request.method == 'POST':
-            form = BillingAddressForm(request.POST, instane=saved_address)
-            pay_form = PaymentMethodForm(request.POST, instance=payment_form)
+            form = BillingAddressForm(request.POST, instance=saved_address)
+            pay_form = PaymentMethodForm(request.POST, instance=payment_obj)
             if form.is_valid() and pay_form.is_valid():
                 form.save()
                 pay_method = pay_form.save()
 
                 if not saved_address.is_fully_filled():
-                    return redirect('checkout')
+                    return redirect('payment:checkout')
 
-
+                # Cash on delivery payment proccess
                 if pay_method.payment_method == 'Cash on Delivery':
                     order_qs = Order.objects.filter(user=request.user, ordered=False)
                     order = order_qs[0]
@@ -59,6 +57,5 @@ class CheckoutTemplateView(TemplateView):
                     for item in cart_items:
                         item.purchased = True
                         item.save()
-                    print('Order Submit Successfully')
+                    print('Order Submited Successsfully')
                     return redirect('store:index')
-

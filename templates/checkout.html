@@ -2,11 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load category %}
+    {% load cart_product %}
+    {% load logoInfo %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title> Store||checkout </title>
     <link href='{% static "/css/bootstrap.min.css" %}' rel="stylesheet">
     <link href='{% static "/css/font-awesome.min.css" %}' rel="stylesheet">
     <link href='{% static "/css/prettyPhoto.css" %}' rel="stylesheet">
@@ -35,8 +38,8 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a href='{% static "/"%}'><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                            <li><a href='{% static "/"%}'><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                            <li><a href='{% static "/"%}'><i class="fa fa-phone"></i> 0334400876</a></li>
+                            <li><a href='{% static "/"%}'><i class="fa fa-envelope"></i> xtuan222@gmail.com</a></li>
                         </ul>
                     </div>
                 </div>
@@ -60,41 +63,20 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href='{% static "/index.html"%}'><img src='{% static "/images/home/logo.png" alt="" %}'/></a>
+                        <a href='{% url "store:index"%}'><img src='{{ request.user|logo }}'alt="" width="100" height="100"/></a>
                     </div>
                     <div class="btn-group pull-right">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                USA
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href='{% static "/" %}'>Canada</a></li>
-                                <li><a href='{% static "/" %}'>UK</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                DOLLAR
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href='{% static "/"%}'>Canadian Dollar</a></li>
-                                <li><a href='{% static "/"%}'>Pound</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href='{% static "/"%}'><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href='{% static "/"%}'><i class="fa fa-star"></i> Wishlist</a></li>
+<!--                            <li><a href='{% static "/"%}'><i class="fa fa-star"></i> Wishlist</a></li>-->
                             <li><a href='{% url "payment:checkout"%}'><i class="fa fa-crosshairs"></i> Checkout</a>
                             </li>
                             <li><a href='{% url "order:cart" %}'><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href='{% static "/login.html"%}'><i class="fa fa-lock"></i> Login</a></li>
+                            <li><a href='{% url "login"%}'><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -161,333 +143,186 @@
         <div class="register-req">
             <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
         </div><!--/register-req-->
-
-        <div class="shopper-informations">
-            <div class="row">
-                <div class="col-sm-6">
-                    <!--						<div class="shopper-info">-->
-                    <!--							<p>Shopper Information</p>-->
-                    <!--							<form action="" method="post">-->
-                    <!--							{% csrf_token %}-->
-                    <!--								<input type="text" placeholder="Display Name">-->
-                    <!--								<input type="text" placeholder="User Name">-->
-                    <!--								<input type="password" placeholder="Password">-->
-                    <!--								<input type="password" placeholder="Confirm password">-->
-                    <!--							</form>-->
-                    <!--							<a class="btn btn-primary" href="">Get Quotes</a>-->
-                    <!--							<a class="btn btn-primary" href="">Continue</a>-->
-                    <!--						</div>-->
-                </div>
-                <div class="col-sm-12 clearfix">
-                    <div class="bill-to">
-                        <p>Bill To</p>
-                        {{ billing_address.as_p }}
-                        <div class="form-one">
-                            <!--                            <form action="" method="post">-->
-                            <!--                                <input type="text" placeholder="First Name *">-->
-                            <!--                                <input type="text" placeholder="Last Name *">-->
-                            <!--                                <input type="text" placeholder="Address  *">-->
-                            <!--                            </form>-->
-                        </div>
-                        <div class="form-two">
-                            <!--                            <form>-->
-                            <!--                                <input type="text" placeholder="Zip / Postal Code *">-->
-                            <!--                                <select>-->
-                            <!--                                    <option>&#45;&#45; Country &#45;&#45;</option>-->
-                            <!--                                    <option>United States</option>-->
-                            <!--                                    <option>Bangladesh</option>-->
-                            <!--                                    <option>UK</option>-->
-                            <!--                                    <option>India</option>-->
-                            <!--                                    <option>Pakistan</option>-->
-                            <!--                                    <option>Ucrane</option>-->
-                            <!--                                    <option>Canada</option>-->
-                            <!--                                    <option>Dubai</option>-->
-                            <!--                                </select>-->
-                            <!--                                <select>-->
-                            <!--                                    <option>&#45;&#45; State / Province / Region &#45;&#45;</option>-->
-                            <!--                                    <option>United States</option>-->
-                            <!--                                    <option>Bangladesh</option>-->
-                            <!--                                    <option>UK</option>-->
-                            <!--                                    <option>India</option>-->
-                            <!--                                    <option>Pakistan</option>-->
-                            <!--                                    <option>Ucrane</option>-->
-                            <!--                                    <option>Canada</option>-->
-                            <!--                                    <option>Dubai</option>-->
-                            <!--                                </select>-->
-                            <!--                                <input type="password" placeholder="Confirm password">-->
-                            <!--                                <input type="text" placeholder="Phone *">-->
-                            <!--                                <input type="text" placeholder="Mobile Phone">-->
-                            <!--                                <input type="text" placeholder="Fax">-->
-                            <!--                            </form>-->
+        <form method="post" action="{% url 'payment:checkout' %}">
+            {% csrf_token %}
+            <div class="shopper-informations">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!--						<div class="shopper-info">-->
+                        <!--							<p>Shopper Information</p>-->
+                        <!--							<form action="" method="post">-->
+                        <!--							{% csrf_token %}-->
+                        <!--								<input type="text" placeholder="Display Name">-->
+                        <!--								<input type="text" placeholder="User Name">-->
+                        <!--								<input type="password" placeholder="Password">-->
+                        <!--								<input type="password" placeholder="Confirm password">-->
+                        <!--							</form>-->
+                        <!--							<a class="btn btn-primary" href="">Get Quotes</a>-->
+                        <!--							<a class="btn btn-primary" href="">Continue</a>-->
+                        <!--						</div>-->
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <div class="bill-to">
+                            <p>Bill To</p>
+                            {{ billing_address.as_p }}
+                            <div class="form-one">
+                                <!--                            <form action="" method="post">-->
+                                <!--                                <input type="text" placeholder="First Name *">-->
+                                <!--                                <input type="text" placeholder="Last Name *">-->
+                                <!--                                <input type="text" placeholder="Address  *">-->
+                                <!--                            </form>-->
+                            </div>
+                            <div class="form-two">
+                                <!--                            <form>-->
+                                <!--                                <input type="text" placeholder="Zip / Postal Code *">-->
+                                <!--                                <select>-->
+                                <!--                                    <option>&#45;&#45; Country &#45;&#45;</option>-->
+                                <!--                                    <option>United States</option>-->
+                                <!--                                    <option>Bangladesh</option>-->
+                                <!--                                    <option>UK</option>-->
+                                <!--                                    <option>India</option>-->
+                                <!--                                    <option>Pakistan</option>-->
+                                <!--                                    <option>Ucrane</option>-->
+                                <!--                                    <option>Canada</option>-->
+                                <!--                                    <option>Dubai</option>-->
+                                <!--                                </select>-->
+                                <!--                                <select>-->
+                                <!--                                    <option>&#45;&#45; State / Province / Region &#45;&#45;</option>-->
+                                <!--                                    <option>United States</option>-->
+                                <!--                                    <option>Bangladesh</option>-->
+                                <!--                                    <option>UK</option>-->
+                                <!--                                    <option>India</option>-->
+                                <!--                                    <option>Pakistan</option>-->
+                                <!--                                    <option>Ucrane</option>-->
+                                <!--                                    <option>Canada</option>-->
+                                <!--                                    <option>Dubai</option>-->
+                                <!--                                </select>-->
+                                <!--                                <input type="password" placeholder="Confirm password">-->
+                                <!--                                <input type="text" placeholder="Phone *">-->
+                                <!--                                <input type="text" placeholder="Mobile Phone">-->
+                                <!--                                <input type="text" placeholder="Fax">-->
+                                <!--                            </form>-->
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!--					<div class="col-sm-4">-->
-                <!--						<div class="order-message">-->
-                <!--							<p>Shipping Order</p>-->
-                <!--							<textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>-->
-                <!--							<label><input type="checkbox"> Shipping to bill address</label>-->
-                <!--						</div>-->
-                <!--					</div>-->
             </div>
-        </div>
-        <div class="review-payment">
-            <h2>Your Order</h2>
-        </div>
-
-        <div class="table-responsive cart_info">
-            <table class="table table-condensed">
-                <thead>
-                <tr class="cart_menu">
-                    <td class="image">Item</td>
-                    <td class="description"></td>
-                    <td class="price">Size</td>
-                    <td class="price">Color</td>
-                    <td class="price">Price</td>
-                    <td class="quantity">Quantity</td>
-                    <td class="total">Total</td>
-                    <td></td>
-                </tr>
-                </thead>
-                <tbody>
-                {% for item in order_item %}
-                <tr>
-                    <td class="cart_product">
-                        <a href=""><img src='{{item.image}}' alt=""></a>
-                    </td>
-                    <td class="cart_description">
-                        <h4><a href="">{{item.item.name}}</a></h4>
-                        <!--								<p>Web ID: 1089772</p>-->
-                    </td>
-                    <td class="price_col">
-                        <p>{{item.size}}</p>
-                    </td>
-                    <td class="price_col">
-                        <p>{{item.color}}</p>
-                    </td>
-                    <td class="cart_price">
-                        <p>{{item.item.price}}</p>
-                    </td>
-                    <td class="cart_quantity">
-                        <div class="cart_quantity_button">
-<!--                            <a class="cart_quantity_up" href=""> + </a>-->
-                            <input class="cart_quantity_input" type="text" name="quantity" value="{{item.quantity}}"
-                                   autocomplete="off"
-                                   size="2">
-<!--                            <a class="cart_quantity_down" href=""> - </a>-->
-                        </div>
-                    </td>
-                    <td class="cart_total">
-                        <p class="cart_total_price">$
-                            {% if item.variation_total %}
-                            {{ item.variation_total }}
-                            {% else %}
-                            ${{item.get_total}}
-                            {% endif %}
-                        </p>
-                    </td>
-                    <td class="cart_delete">
-                        <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                </tr>
-
-
-                <tr>
-                    <td colspan="4">&nbsp;</td>
-                    <td colspan="2">
-                        <table class="table table-condensed total-result">
-<!--                            <tr>-->
-<!--                                <td>Discount</td>-->
-<!--                                <td>{{get_discount}}</td>-->
-<!--                            </tr>-->
-                            <tr>
-                                <td><b>Subtotal</b></td>
-
-                                <td>
-                                    ${{order_total}}
-                                </td>
-                            </tr>
-
-                        </table>
-
-                    </td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-
-            <div class="payment-options">
-                {{payment_method.as_p}}
-            <br>
-            <div id="'paypal-button-container"></div>
-            <br/>
-                <button type="submit" class="btn btn-outline-primary-2 btn">
-                    <span class="btn-hover-text">Proceed to Checkout </span>
-                </button>
+            <div class="review-payment">
+                <h2>Your Order</h2>
             </div>
-        </div>
 
+            <div class="table-responsive cart_info">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description"></td>
+                        <td class="price">Size</td>
+                        <td class="price">Color</td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in order_item %}
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src='{{item.item.image.url}}' alt="" width="200" height="300"></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">{{item.item.name}}</a></h4>
+                        </td>
+                        <td class="price_col">
+                            <p>{{item.size}}</p>
+                        </td>
+                        <td class="price_col">
+                            <p>{{item.color}}</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>{{item.item.price}}</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <input class="cart_quantity_input" type="text" name="quantity" value="{{item.quantity}}"
+                                       autocomplete="off"
+                                       size="2">
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">$
+                                {% if item.variation_total %}
+                                {{ item.variation_total }}
+                                {% else %}
+                                ${{item.get_total}}
+                                {% endif %}
+                            </p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                        <td colspan="2">
+                            <table class="table table-condensed total-result">
+                                <!--                            <tr>-->
+                                <!--                                <td>Discount</td>-->
+                                <!--                                <td>{{get_discount}}</td>-->
+                                <!--                            </tr>-->
+
+                            </table>
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td><b>Subtotal</b></td>
+
+                        <td>
+                            ${{order_total}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="payment-options">
+                    {{payment_method.as_p}}
+                    <br>
+                    <div id="'paypal-button-container"></div>
+                    <br/>
+                    <button type="submit" class="btn btn-outline-primary-2 btn">
+                        <span class="btn-hover-text">Proceed to Checkout </span>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </section> <!--/#cart_items-->
 
 
 <footer id="footer"><!--Footer-->
-    <div class="footer-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="companyinfo">
-                        <h2><span>e</span>-shopper</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
-                    </div>
-                </div>
-                <div class="col-sm-7">
-                    <div class="col-sm-3">
-                        <div class="video-gallery text-center">
-                            <a href="#">
-                                <div class="iframe-img">
-                                    <img src='{% static "images/home/iframe1.png" %}' alt=""/>
-                                </div>
-                                <div class="overlay-icon">
-                                    <i class="fa fa-play-circle-o"></i>
-                                </div>
-                            </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-3">
-                        <div class="video-gallery text-center">
-                            <a href="#">
-                                <div class="iframe-img">
-                                    <img src='{% static "images/home/iframe2.png" %}' alt=""/>
-                                </div>
-                                <div class="overlay-icon">
-                                    <i class="fa fa-play-circle-o"></i>
-                                </div>
-                            </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-3">
-                        <div class="video-gallery text-center">
-                            <a href="#">
-                                <div class="iframe-img">
-                                    <img src='{% static "images/home/iframe3.png" %}' alt=""/>
-                                </div>
-                                <div class="overlay-icon">
-                                    <i class="fa fa-play-circle-o"></i>
-                                </div>
-                            </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-3">
-                        <div class="video-gallery text-center">
-                            <a href="#">
-                                <div class="iframe-img">
-                                    <img src='{% static "images/home/iframe4.png" %}' alt=""/>
-                                </div>
-                                <div class="overlay-icon">
-                                    <i class="fa fa-play-circle-o"></i>
-                                </div>
-                            </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="address">
-                        <img src='{% static "images/home/map.png" %}' alt=""/>
-                        <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="footer-widget">
         <div class="container">
             <div class="row">
                 <div class="col-sm-2">
                     <div class="single-widget">
-                        <h2>Service</h2>
+                        <h2>Contact Us</h2>
                         <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Online Help</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Order Status</a></li>
-                            <li><a href="#">Change Location</a></li>
-                            <li><a href="#">FAQ’s</a></li>
+                            <li>Trần Xuân Anh Tuấn</a></li>
+                            <li>SDT:0334400876</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>Quock Shop</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">T-Shirt</a></li>
-                            <li><a href="#">Mens</a></li>
-                            <li><a href="#">Womens</a></li>
-                            <li><a href="#">Gift Cards</a></li>
-                            <li><a href="#">Shoes</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>Policies</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Terms of Use</a></li>
-                            <li><a href="#">Privecy Policy</a></li>
-                            <li><a href="#">Refund Policy</a></li>
-                            <li><a href="#">Billing System</a></li>
-                            <li><a href="#">Ticket System</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>About Shopper</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Company Information</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">Store Location</a></li>
-                            <li><a href="#">Affillate Program</a></li>
-                            <li><a href="#">Copyright</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-sm-offset-1">
-                    <div class="single-widget">
-                        <h2>About Shopper</h2>
-                        <form action="#" class="searchform">
-                            <input type="text" placeholder="Your email address"/>
-                            <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i>
-                            </button>
-                            <p>Get the most recent updates from <br/>our site and be updated your self...</p>
-                        </form>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
 
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row">
-                <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-                <p class="pull-right">Designed by <span><a target="_blank"
-                                                           href="http://www.themeum.com">Themeum</a></span></p>
-            </div>
-        </div>
-    </div>
+
 
 </footer><!--/Footer-->
 
@@ -500,7 +335,7 @@
 <script src='{% static "js/main.js" %}'></script>
 {% block paypal %}
 <script src="http://www.paypal.com/sdk/js?cilent-id={{paypal_client_id}}"></script>
- <script>
+<script>
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
 
@@ -529,7 +364,11 @@
 
 
         }).render('#paypal-button-container');
-    </script>
+
+
+
+
+</script>
 {% endblock paypal %}
 </body>
 </html>

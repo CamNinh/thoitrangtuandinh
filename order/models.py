@@ -1,10 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
 from store.models import Product, VariationValue
+
+from account.models import Profile
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='cart')
     item = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     size = models.CharField(max_length=100, blank=True, null=True)
@@ -65,10 +66,10 @@ class Cart(models.Model):
 class Order(models.Model):
     PAYMENT_METHOD = (
         ('Cash on Delivery', 'Cash on Delivery'),
-        ('PayPal','PayPal'),
-        ('SSLcomerz','SSLcomerz')
+        ('PayPal', 'PayPal'),
+        ('SSLcomerz', 'SSLcomerz')
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     orderitems = models.ManyToManyField(Cart)
     ordered = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)

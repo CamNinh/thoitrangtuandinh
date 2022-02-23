@@ -53,13 +53,10 @@ def cart_view(request):
             current_time = timezone.now()
             code = coupon_form.cleaned_data.get('code')
             coupon_obj = Coupon.objects.get(code=code, active=True)
-            print('c', coupon_obj.valid_to >= current_time)
             if coupon_obj.valid_to >= current_time:
                 get_discount = (coupon_obj.discount / 100) * order.get_totals()
-                print('x', get_discount)
 
                 total_price_after_discount = order.get_totals() - get_discount
-                print('a', total_price_after_discount)
 
                 request.session['discount_total'] = total_price_after_discount
                 request.session['coupon_code'] = code
@@ -69,8 +66,7 @@ def cart_view(request):
                 request.session['discount_total'] = order.get_totals()
 
         total_price_after_discount = request.session.get('discount_total')
-        print('ab', total_price_after_discount)
-        print('ac', order.get_totals())
+
 
         coupon_code = request.session.get('coupon_code')
         context = {
@@ -80,7 +76,6 @@ def cart_view(request):
             'coupon_code': coupon_code,
             'total_price_after_discount': total_price_after_discount
         }
-        print('s', context)
 
         return render(request, '../templates/cart.html', context)
     else:
